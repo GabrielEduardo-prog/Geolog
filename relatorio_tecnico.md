@@ -1,5 +1,9 @@
 # Relatório técnico — GeoLog
 
+**Disciplina:** Persistência de Dados  
+**Projeto:** Plataforma GeoLog para a LogiTech Express  
+**Integrantes:** Gabriel Eduardo Vilar Rocha
+
 ## 1. Arquitetura
 
 A GeoLog adota Persistência Poliglota. O SQLite mantém os dados com maior exigência
@@ -35,11 +39,37 @@ placa e a distribuição dos status dos motoristas. A aplicação trata indispon
 do MongoDB sem esconder o estado da conexão: os dados SQLite continuam acessíveis e
 a interface orienta a configuração do serviço.
 
-## 4. Execução
+## 4. Simulador de telemetria
+
+Como recurso adicional, a interface possui o botão **Simular Movimentação**. Ao ser
+acionado, o sistema consulta a última posição de cada veículo, aplica uma pequena
+variação aleatória nas coordenadas, temperatura e velocidade, e grava uma nova
+leitura no MongoDB com o horário atual. Em seguida, o Streamlit executa uma nova
+renderização, atualizando o mapa, os indicadores e o histórico sem reiniciar o
+processo da aplicação.
+
+## 5. Execução e testes
 
 ```bash
 python -m pip install -r requirements.txt
-streamlit run app.py
+python -m streamlit run app.py
 ```
 
 Variáveis opcionais: `MONGO_URI`, `MONGO_DATABASE` e `MONGO_COLLECTION`.
+
+Para validar a aplicação, foram considerados os seguintes testes:
+
+1. inicialização automática do SQLite e carga das tabelas relacionais;
+2. conexão com o MongoDB e criação do índice `location_2dsphere`;
+3. busca de veículos usando `$near` e filtro por raio;
+4. associação da última telemetria ao motorista e à placa;
+5. atualização dos KPIs e gráficos após novas leituras;
+6. inserção de novos pontos pelo botão **Simular Movimentação**.
+
+## 6. Conclusão
+
+A solução demonstra a separação de responsabilidades entre o banco relacional e o
+banco orientado a documentos. O SQLite garante a integridade dos cadastros, enquanto
+o MongoDB atende ao armazenamento flexível e às consultas geoespaciais da telemetria.
+O Streamlit integra as duas fontes em uma interface única para acompanhamento da
+operação da frota.

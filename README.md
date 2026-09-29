@@ -65,11 +65,7 @@ Na pasta que contém `app.py`, execute:
 python -m streamlit run app.py
 ```
 
-Abra no navegador:
-
-
-http://localhost:8501
-```
+Abra no navegador: http://localhost:8501
 
 Na barra lateral, o indicador esperado é:
 
@@ -173,15 +169,3 @@ Depois acesse `http://localhost:8502`.
 ### Encerrar a aplicação
 
 No terminal onde o Streamlit está rodando, pressione `Ctrl+C`.
-
-## 8. Entrega acadêmica
-
-Entregue:
-
-- `app.py`;
-- `requirements.txt`;
-- `relatorio_tecnico.md` convertido para PDF, com no máximo três páginas.
-
-O relatório deve incluir o diagrama da arquitetura poliglota, mostrando o Streamlit, o SQLite e o MongoDB, além do fluxo de consulta geoespacial e do join em memória.
-
-Não inclua no código, no README ou no relatório a senha do MongoDB Atlas.

@@ -19,7 +19,7 @@ import streamlit as st
 from folium.plugins import MarkerCluster
 from pymongo import ASCENDING, MongoClient
 from pymongo.collection import Collection
-from pymongo.errors import PyMongoError, ServerSelectionTimeoutError
+from pymongo.errors import PyMongoError
 from streamlit_folium import st_folium
 
 
@@ -282,7 +282,7 @@ def main() -> None:
         </style>
     """, unsafe_allow_html=True)
     initialize_sqlite()
-    mongo_client, collection, mongo_error = connect_mongo()
+    mongo_client, collection, _ = connect_mongo()
     fleet = get_fleet()
 
     st.title("GeoLog")
